@@ -30,16 +30,6 @@ pipeline:
                   identifier: group_0
                   steps:
                     - step:
-                        type: GitClone
-                        name: GitClone_master
-                        identifier: GitClone_master
-                        spec:
-                          connectorRef: harnessgithubconnector
-                          build:
-                            type: branch
-                            spec:
-                              branch: master
-                    - step:
                         type: Run
                         name: Run_1
                         identifier: Run_1
