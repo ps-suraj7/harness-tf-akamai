@@ -1,0 +1,14 @@
+inputSet:
+  pipeline:
+    identifier: harnesstfakamaipipeline
+    properties:
+      ci:
+        codebase:
+          build:
+            spec:
+              branch: master
+            type: branch
+  name: git_harness
+  identifier: git_harness
+  orgIdentifier: default
+  projectIdentifier: default_project
