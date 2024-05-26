@@ -11,6 +11,46 @@ pipeline:
         build: <+input>
   stages:
     - stage:
+        name: build_stage
+        identifier: build_stage
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          platform:
+            os: Linux
+            arch: Amd64
+          runtime:
+            type: Cloud
+            spec: {}
+          execution:
+            steps:
+              - stepGroup:
+                  name: group_0
+                  identifier: group_0
+                  steps:
+                    - step:
+                        type: GitClone
+                        name: GitClone_master
+                        identifier: GitClone_master
+                        spec:
+                          connectorRef: harnessgithubconnector
+                          build:
+                            type: branch
+                            spec:
+                              branch: master
+                    - step:
+                        type: Run
+                        name: Run_1
+                        identifier: Run_1
+                        spec:
+                          shell: Sh
+                          command: |-
+                            git log
+                            opstatus=OKAY
+                          outputVariables:
+                            - name: opstatus
+    - stage:
         name: tf-docker
         identifier: tfdocker
         description: ""
@@ -34,7 +74,7 @@ pipeline:
                             spec:
                               script: |-
                                 echo "internal/prd/customer-success"
-                                git log
+                                echo <+pipeline.stages.build_stage.spec.execution.steps.group_0.steps.Run_1.output.outputVariables.opstatus>
                                 tfc_workspace="path/to/workspace"
                           environmentVariables: []
                           outputVariables:
