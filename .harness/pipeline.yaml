@@ -66,6 +66,7 @@ pipeline:
                                 echo "internal/prd/customer-success"
                                 echo <+pipeline.stages.build_stage.spec.execution.steps.group_0.steps.Run_1.output.outputVariables.opstatus>
                                 tfc_workspace="path/to/workspace"
+                                ls -lah
                           environmentVariables: []
                           outputVariables:
                             - name: tfc_workspace
