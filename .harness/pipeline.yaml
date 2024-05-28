@@ -52,7 +52,7 @@ pipeline:
                     build:
                       type: branch
                       spec:
-                        branch: feat/harness-pipeline
+                        branch: feat/harness_pipeline
     - stage:
         name: tf-docker
         identifier: tfdocker
