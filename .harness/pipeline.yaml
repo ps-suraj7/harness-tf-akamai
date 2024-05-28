@@ -80,13 +80,14 @@ pipeline:
                           runType: PlanOnly
                           runMessage: ""
                           spec:
-                            organization: ___
-                            workspace: <+execution.steps.tfstepgroup.steps.ShellScript.output.outputVariables.tfc_workspace>
+                            organization: tfc-demo-org
+                            workspace: pre
                             variables: []
                             discardPendingRuns: true
                             targets: []
                             connectorRef: tfcharnessconnecter
                             provisionerIdentifier: _tfc_run
                             planType: Apply
+                            exportTerraformPlanJson: true
                         timeout: 10m
         tags: {}
