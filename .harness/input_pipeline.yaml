@@ -1,0 +1,15 @@
+inputSet:
+  pipeline:
+    identifier: harnesstfakamaipipeline
+    properties:
+      ci:
+        codebase:
+          build:
+            spec:
+              branch: feat/harness_pipeline
+            type: branch
+    remoteBranch: feat/harness_pipeline
+  name: feat.harness_pipeline
+  identifier: featharness_pipeline
+  orgIdentifier: default
+  projectIdentifier: default_project
