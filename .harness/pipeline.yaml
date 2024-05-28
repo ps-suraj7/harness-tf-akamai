@@ -42,6 +42,17 @@ pipeline:
                             find .
                           outputVariables:
                             - name: opstatus
+              - step:
+                  type: GitClone
+                  name: GitClone_1
+                  identifier: GitClone_1
+                  spec:
+                    connectorRef: harnessgithubconnector
+                    cloneDirectory: /tf-test
+                    build:
+                      type: branch
+                      spec:
+                        branch: feat/harness-pipeline
     - stage:
         name: tf-docker
         identifier: tfdocker
@@ -69,6 +80,8 @@ pipeline:
                                 echo <+pipeline.stages.build_stage.spec.execution.steps.group_0.steps.Run_1.output.outputVariables.opstatus>
                                 tfc_workspace="path/to/workspace"
                                 echo working_directory="$PWD"
+                                find .
+                                cd /tf-test
                                 find .
                           environmentVariables: []
                           outputVariables:
