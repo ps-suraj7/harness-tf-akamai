@@ -89,5 +89,6 @@ pipeline:
                             provisionerIdentifier: _tfc_run
                             planType: Apply
                             exportTerraformPlanJson: true
+                            terraformVersion: latest
                         timeout: 10m
         tags: {}
