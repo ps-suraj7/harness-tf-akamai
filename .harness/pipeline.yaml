@@ -81,7 +81,7 @@ pipeline:
                           runMessage: ""
                           spec:
                             organization: tfc-demo-org
-                            workspace: ws-1RkJ5jcKnZgxQftd
+                            workspace: ws-t2A4XzBVf9tCEQtd
                             variables: []
                             discardPendingRuns: true
                             targets: []
