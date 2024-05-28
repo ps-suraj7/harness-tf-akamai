@@ -38,6 +38,8 @@ pipeline:
                           command: |-
                             git log
                             opstatus=OKAY
+                            echo working_directory="$PWD"
+                            find .
                           outputVariables:
                             - name: opstatus
     - stage:
