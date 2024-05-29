@@ -1,0 +1,8 @@
+environment:
+  name: terraform-pre
+  identifier: terraformpre
+  description: ""
+  tags: {}
+  type: PreProduction
+  orgIdentifier: default
+  projectIdentifier: default_project
