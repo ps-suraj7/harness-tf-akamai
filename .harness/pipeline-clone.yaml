@@ -1,0 +1,104 @@
+---
+pipeline:
+  projectIdentifier: "default_project"
+  orgIdentifier: "default"
+  tags: {}
+  properties:
+    ci:
+      codebase:
+        connectorRef: "harnessgithubconnector"
+        build: "<+input>"
+  stages:
+  - stage:
+      name: "build_stage"
+      identifier: "build_stage"
+      description: ""
+      type: "CI"
+      spec:
+        cloneCodebase: true
+        platform:
+          os: "Linux"
+          arch: "Amd64"
+        runtime:
+          type: "Cloud"
+          spec: {}
+        execution:
+          steps:
+          - stepGroup:
+              name: "group_0"
+              identifier: "group_0"
+              steps:
+              - step:
+                  type: "GitClone"
+                  name: "GitClone_1"
+                  identifier: "GitClone_1"
+                  spec:
+                    connectorRef: "harnessgithubconnector"
+                    cloneDirectory: "/tf-test"
+                    build:
+                      type: "branch"
+                      spec:
+                        branch: "feat/harness_pipeline"
+              - step:
+                  type: "Run"
+                  name: "Run_1"
+                  identifier: "Run_1"
+                  spec:
+                    shell: "Sh"
+                    command: "git log\nopstatus=OKAY\necho working_directory=\"$PWD\"\
+                      \nfind ."
+                    outputVariables:
+                    - name: "opstatus"
+  - stage:
+      name: "tf-docker"
+      identifier: "tfdocker"
+      description: ""
+      type: "Custom"
+      spec:
+        execution:
+          steps:
+          - stepGroup:
+              name: "tf-step-group"
+              identifier: "tfstepgroup"
+              steps:
+              - step:
+                  type: "ShellScript"
+                  name: "ShellScript"
+                  identifier: "ShellScript"
+                  spec:
+                    shell: "Bash"
+                    executionTarget: {}
+                    source:
+                      type: "Inline"
+                      spec:
+                        script: "echo \"internal/prd/customer-success\"\necho <+pipeline.stages.build_stage.spec.execution.steps.group_0.steps.Run_1.output.outputVariables.opstatus>\n\
+                          tfc_workspace=\"path/to/workspace\"\necho working_directory=\"\
+                          $PWD\"\nfind .\ncd /tf-test\nfind ."
+                    environmentVariables: []
+                    outputVariables:
+                    - name: "tfc_workspace"
+                      type: "String"
+                      value: "tfc_workspace"
+                  timeout: "10m"
+              - step:
+                  type: "TerraformCloudRun"
+                  name: "TerraformCloudRun"
+                  identifier: "TerraformCloudRun"
+                  spec:
+                    runType: "PlanOnly"
+                    runMessage: ""
+                    spec:
+                      organization: "tfc-demo-org"
+                      workspace: "ws-t2A4XzBVf9tCEQtd"
+                      variables: []
+                      discardPendingRuns: true
+                      targets: []
+                      connectorRef: "tfcharnessconnecter"
+                      provisionerIdentifier: "_tfc_run"
+                      planType: "Apply"
+                      exportTerraformPlanJson: true
+                      terraformVersion: "1.8.1"
+                  timeout: "10m"
+      tags: {}
+  identifier: "harnesstfakamaipipelineclone"
+  name: "harness-tf-akamai-pipeline-clone"
