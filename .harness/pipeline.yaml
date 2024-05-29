@@ -108,4 +108,10 @@ pipeline:
                             exportTerraformPlanJson: true
                             terraformVersion: 1.8.1
                         timeout: 10m
+          environment:
+            environmentRef: terraformpre
+            gitBranch: feat/harness_pipeline
+            deployToAll: false
         tags: {}
+        delegateSelectors:
+          - docker-delegate
