@@ -30,6 +30,17 @@ pipeline:
                   identifier: group_0
                   steps:
                     - step:
+                        type: GitClone
+                        name: GitClone_1
+                        identifier: GitClone_1
+                        spec:
+                          connectorRef: harnessgithubconnector
+                          cloneDirectory: /tf-test
+                          build:
+                            type: branch
+                            spec:
+                              branch: feat/harness_pipeline
+                    - step:
                         type: Run
                         name: Run_1
                         identifier: Run_1
@@ -42,17 +53,6 @@ pipeline:
                             find .
                           outputVariables:
                             - name: opstatus
-              - step:
-                  type: GitClone
-                  name: GitClone_1
-                  identifier: GitClone_1
-                  spec:
-                    connectorRef: harnessgithubconnector
-                    cloneDirectory: /tf-test
-                    build:
-                      type: branch
-                      spec:
-                        branch: feat/harness_pipeline
     - stage:
         name: tf-docker
         identifier: tfdocker
